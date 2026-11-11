@@ -572,13 +572,51 @@
     }
     $('[data-gw-open]').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openPV('knit-crewneck', 'black', 'on', gwFig); });
   }
-  // campaign film: only plays while on screen
-  const cpVideo = $('.cp__video');
-  if (cpVideo) {
+  /* campaign film: drawn frame by frame on a canvas (no video player, no play/pause sign).
+     It starts by itself when you slide into the section and pauses when you leave. */
+  const film = $('[data-cp-film]');
+  if (film) {
+    const N = 96, FPS = 12, frames = new Array(N);
+    let loaded = 0, started = false, playing = false, i = 0, last = 0;
+    const ctx = film.getContext('2d');
+    const size = () => {
+      const r = film.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      film.width = Math.round(r.width * dpr); film.height = Math.round(r.height * dpr);
+    };
+    const draw = k => {
+      const im = frames[k];
+      if (!im || !im.complete || !im.naturalWidth) return false;
+      const W = film.width, H = film.height, s = Math.max(W / im.naturalWidth, H / im.naturalHeight);
+      const w = im.naturalWidth * s, h = im.naturalHeight * s;
+      ctx.drawImage(im, (W - w) / 2, isMobile() ? 0 : (H - h) / 2, w, h);   // phones: keep her head in frame
+      return true;
+    };
+    const load = () => {
+      if (started) return; started = true;
+      for (let k = 0; k < N; k++) {
+        const im = new Image(); im.decoding = 'async';
+        im.onload = () => { loaded++; if (k === 0) { size(); draw(0); } };
+        im.src = `video/frames/${String(k).padStart(3, '0')}.webp`;
+        frames[k] = im;
+      }
+    };
+    const tick = t => {
+      if (!playing) return;
+      if (t - last >= 1000 / FPS) {
+        last = t;
+        const next = (i + 1) % N;
+        if (draw(next)) i = next;          // waits on a frame that is still loading
+      }
+      requestAnimationFrame(tick);
+    };
+    // start loading a little before the section arrives, play while it is on screen
+    new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) load(); }), { rootMargin: '900px 0px' }).observe(film);
     new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting) { const p = cpVideo.play(); if (p) p.catch(() => {}); } else cpVideo.pause();
-    }), { threshold: 0.25 }).observe(cpVideo);
-    $('[data-cp-open]').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openPV('knit-zip-jacket', 'charcoal', 'on', cpVideo); });
+      if (e.isIntersecting && !playing) { playing = true; requestAnimationFrame(tick); }
+      else if (!e.isIntersecting) playing = false;
+    }), { threshold: 0.2 }).observe(film);
+    window.addEventListener('resize', () => { if (started) { size(); draw(i); } });
+    $('[data-cp-open]').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openPV('knit-zip-jacket', 'charcoal', 'on', film); });
   }
   if (document.documentElement.hasAttribute('data-theme')) document.body.classList.add('show-themes');
 

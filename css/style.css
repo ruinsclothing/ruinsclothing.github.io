@@ -578,7 +578,7 @@ body.menu-open .menu { clip-path: inset(0 0 0 0); pointer-events: auto; }
 }
 .cp__film { position: absolute; left: 50%; top: -2%; height: 118%; aspect-ratio: 720 / 1280; transform: translateX(-36%);   /* zoomed in: bigger film, bottom runs off */
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); }
-.cp__video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cp__video { display: block; width: 100%; height: 100%; object-fit: cover; background: #EDEEEC url('../video/ruins-campaign-poster.webp') 50% 0 / cover no-repeat; }
 .cp__logo { position: absolute; z-index: 2; left: var(--gut); top: 9%; display: flex; align-items: flex-start; }
 .cp__logo .logo { font-size: clamp(64px, 8.4vw, 132px); color: var(--red); }
 .cp__logo sup { font-family: var(--sans); font-size: clamp(14px, 1.4vw, 22px); font-weight: 700; margin-left: 4px; }
