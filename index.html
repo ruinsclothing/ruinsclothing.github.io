@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>RUINS — Basics built to last</title>
+  <meta name="description" content="RUINS — everyday basics made in Cairo. Archive 01: knits, zip hoodies and jackets.">
+  <!-- TODO(launch): remove noindex when the shop goes live -->
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#ED4702">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Montserrat:wght@500;600;700;800;900&family=Raleway:wght@200;300&family=Sedgwick+Ave+Display&family=Barlow+Condensed:wght@300&family=Instrument+Serif:ital@1&family=Anton&family=Caveat:wght@500&family=IBM+Plex+Mono:wght@400;500&family=Doto:wght@900&display=swap" rel="stylesheet">
+  <script>(function(){try{var t=new URLSearchParams(location.search).get('theme');if(t==='green'||t==='brand')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+  <link rel="stylesheet" href="vendor/lenis.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="is-loading">
+
+  <!-- SVG filters: the "decay" motion blur used by the logo and transitions -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="decay1" x="-60%" y="-10%" width="220%" height="120%" primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.035 0" result="b"/>
+        <feComponentTransfer in="SourceGraphic" result="s"><feFuncA type="linear" slope="0.75"/></feComponentTransfer>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="s"/></feMerge>
+      </filter>
+      <filter id="decay2" x="-80%" y="-10%" width="260%" height="120%" primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.055 0.004" result="b"/>
+        <feOffset in="SourceGraphic" dx="0.04" result="o"/>
+        <feComponentTransfer in="o" result="s"><feFuncA type="linear" slope="0.55"/></feComponentTransfer>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="s"/></feMerge>
+      </filter>
+      <filter id="decay3" x="-100%" y="-10%" width="300%" height="120%" primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.08 0.006" result="b"/>
+        <feOffset in="SourceGraphic" dx="0.06" result="o"/>
+        <feComponentTransfer in="o" result="s"><feFuncA type="linear" slope="0.45"/></feComponentTransfer>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="s"/></feMerge>
+      </filter>
+      <!-- sideways motion blur for the walking figure (Lumera reference) -->
+      <filter id="mblur" x="-30%" y="-10%" width="160%" height="120%"><feGaussianBlur stdDeviation="10 3"/></filter>
+      <!-- rough brush edge for the black X marks (Podval reference) -->
+      <filter id="brush" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="5"/></filter>
+      <!-- spray paint (RERISE reference): speckled edge + soft overspray -->
+      <filter id="spray-core" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" result="d"/><feGaussianBlur in="d" stdDeviation=".6"/></filter>
+      <filter id="spray-haze" x="-20%" y="-40%" width="140%" height="180%"><feTurbulence type="fractalNoise" baseFrequency="2.2" numOctaves="1" seed="3" result="n"/><feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/><feDisplacementMap in="b" in2="n" scale="18"/></filter>
+      <!-- frosted / pebbled glass (Adoe reference) -->
+      <filter id="frost" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="5" result="n"/>
+        <feDisplacementMap id="frostMap" in="SourceGraphic" in2="n" scale="24" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feGaussianBlur in="d" stdDeviation="2.4" result="b"/>
+        <feDiffuseLighting in="n" surfaceScale="4" diffuseConstant="1.1" lighting-color="#ffffff" result="lit"><feDistantLight azimuth="225" elevation="38"/></feDiffuseLighting>
+        <feComponentTransfer in="lit" result="sheen"><feFuncR type="linear" slope=".55" intercept="-.2"/><feFuncG type="linear" slope=".55" intercept="-.2"/><feFuncB type="linear" slope=".55" intercept="-.2"/></feComponentTransfer>
+        <feComposite in="sheen" in2="SourceAlpha" operator="in" result="sheenIn"/>
+        <feBlend in="b" in2="sheenIn" mode="screen"/>
+      </filter>
+      <!-- spray-paint overspray: soft blur broken into speckles (RERISE reference) -->
+      <filter id="overspray" x="-20%" y="-30%" width="140%" height="160%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blur"/>
+        <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="1" seed="9" result="noise"/>
+        <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -3 1.75" result="dots"/>
+        <feComposite in="blur" in2="dots" operator="in"/>
+      </filter>
+      <filter id="paint-edge" x="-5%" y="-10%" width="110%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="2" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ENTRANCE -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__top mono"><span>Archive 01</span><span>Basics · Cairo</span></div>
+    <div class="loader__logo logo" data-logo>RUINS</div>
+    <div class="loader__bottom mono"><span>Loading the rail</span><span class="loader__count">000</span></div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ANNOUNCEMENT -->
+  <div class="announce" aria-label="Announcement">
+    <div class="announce__track mono">
+      <span>Archive 01 — out now</span><span>Basics built to last</span><span>Made in Cairo</span><span>Prices coming soon</span>
+      <span>Archive 01 — out now</span><span>Basics built to last</span><span>Made in Cairo</span><span>Prices coming soon</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="nav">
+    <button class="nav__burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav__links mono" aria-label="Main">
+      <a href="#shop">Shop</a>
+      <a href="#archive">Archive 01</a>
+      <a href="#about">About</a>
+    </nav>
+    <a href="#top" class="nav__logo logo" data-logo aria-label="RUINS, back to top">RUINS</a>
+    <div class="nav__right mono">
+      <a href="https://www.instagram.com/ruins.co_/" target="_blank" rel="noopener" class="hide-m">Instagram</a>
+      <button class="nav__bag" data-open-bag>Bag (<span data-bag-count>0</span>)</button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="menu" aria-hidden="true">
+    <nav class="menu__links">
+      <a href="#shop">Shop</a>
+      <a href="#archive">Archive 01</a>
+      <a href="#about">About</a>
+      <a href="https://www.instagram.com/ruins.co_/" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+    <div class="menu__foot mono"><span>Basics · Cairo</span><span>@ruins.co_</span></div>
+  </div>
+
+  <main id="top">
+
+    <!-- 1 · THE RAIL (entrance, like motion/entrance.MP4) -->
+    <section class="hero">
+      <div class="hero__labels mono">
+        <span class="hero__center"><b>New collection</b><i></i>Archive 01</span>
+      </div>
+
+      <div class="rail" data-rail>
+        <div class="rail__bar"></div>
+        <div class="rail__items" data-rail-items></div>
+      </div>
+
+      <div class="hero__caption">
+        <div class="hero__name" data-rail-name></div>
+        <a href="#shop" class="btn btn--soft">Shop the collection</a>
+      </div>
+
+      <div class="hero__zoom" data-zoom aria-live="polite">
+        <div class="mono hero__count" data-zoom-count>01 / 12</div>
+        <div class="hero__zname" data-zoom-name></div>
+        <div class="hero__zrow">
+          <span class="mono" data-zoom-meta></span>
+          <button class="btn btn--solid" data-zoom-open>Choose size</button>
+          <button class="btn btn--soft" data-zoom-close>Back to rail</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1b · LUMERA-STYLE BLOCK: giant orange logo, model, orange band with the glow -->
+    <section class="lum" id="intro">
+      <!-- Glass panel: solid colour, huge word behind the model (PUNK / Gilded),
+           model behind frosted glass with one clear window (Adoe), editorial labels (Artstock) -->
+      <div class="gw" data-gw>
+        <!-- RERISE: big stacked white lines on concrete -->
+        <div class="gw__lines" aria-hidden="true">
+          <div>Basics for</div><div>every day</div><div>Built to last</div><div>Made in Cairo</div><div>Worn again</div><div>and again.</div>
+        </div>
+        <div class="gw__label gw__label--tl"><em>RUINS.</em><br>Archive 01</div>
+        <div class="gw__label gw__label--tr">Made<br><em>in Cairo</em></div>
+        <span class="gw__num">01</span>
+        <!-- the model behind frosted glass; the square window is the pointer -->
+        <figure class="gw__fig" data-gw-fig>
+          <img class="gw__frost" src="img/on/crewneck-black.webp" alt="Knit Crewneck in Black, worn" loading="lazy">
+        </figure>
+        <div class="gw__winbox" aria-hidden="true"><div class="gw__win" data-gw-win><img class="gw__clear" src="img/on/crewneck-black.webp" alt="" loading="lazy"></div></div>
+        <p class="gw__vert"><b>Basics //</b> 2026 archive</p>
+        <div class="gw__details">
+          <span class="mono">Slogan</span>
+          <b>Basics built to last.</b>
+          <p>Knit Crewneck in black. A heavy knit with a ribbed neck and a clean, boxy line. Made in Cairo.</p>
+          <a href="#piece/knit-crewneck/black" data-gw-open>View piece <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="gw__barcode" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- 2 · SHOWCASE (giant word behind the piece) -->
+    <section class="show" id="archive">
+      <div class="show__pin">
+        <div class="show__words" data-show-words></div>
+        <div class="show__stage" data-show-stage></div>
+        <div class="show__side show__side--l mono">
+          <span>Archive 01</span>
+          <span class="show__count"><b data-show-index>01</b> / <span data-show-total>04</span></span>
+        </div>
+        <div class="show__side show__side--r">
+          <div class="show__info" data-show-info></div>
+        </div>
+        <div class="show__progress"><i data-show-bar></i></div>
+      </div>
+    </section>
+
+    <!-- 2b · CAMPAIGN (test section) -->
+    <section class="cp-wrap">
+      <!-- CAMPAIGN (test section): the jacket film, laid out like the FW '26 poster -->
+      <div class="cp" data-cp>
+        <p class="cp__t cp__t--a">Fall / Winter<br>Collection</p>
+        <p class="cp__t cp__t--b">R—02<br>Knit Zip Jacket</p>
+        <p class="cp__t cp__t--c">Everyday essentials<br>with a modern edge.</p>
+        <p class="cp__t cp__t--d">Charcoal<br>Grey</p>
+        <p class="cp__t cp__t--e">Premium<br>Knit</p>
+        <p class="cp__t cp__t--f">FW<br>’26</p>
+        <p class="cp__t cp__t--g">RUINS®<br>Clothing</p>
+        <a class="cp__t cp__t--h" href="#piece/knit-zip-jacket/charcoal" data-cp-open>Shop the<br>collection <span aria-hidden="true">→</span></a>
+        <div class="cp__film">
+          <video class="cp__video" src="video/ruins-campaign.mp4" poster="video/ruins-campaign-poster.webp" muted loop playsinline preload="metadata" aria-label="Model in the charcoal Knit Zip Jacket"></video>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 4 · SHOP -->
+    <section class="shop" id="shop">
+      <div class="shop__head">
+        <h2 class="shop__title">Shop <span>all</span></h2>
+        <div class="shop__filters mono" role="tablist" data-filters>
+          <button class="is-on" data-filter="all">All</button>
+          <button data-filter="Knitwear">Knitwear</button>
+          <button data-filter="Hoodies">Hoodies</button>
+          <button data-filter="Jackets">Jackets</button>
+          <button data-filter="Tops">Tops</button>
+        </div>
+      </div>
+      <div class="shop__grid" data-grid></div>
+    </section>
+
+    <!-- 3 · SPIN (text ring around the piece) -->
+    <section class="spin" id="new">
+      <div class="spin__scene" data-spin>
+        <div class="spin__world">
+          <div class="spin__ring" data-ring></div>
+          <div class="spin__piece" data-spin-piece></div>
+        </div>
+      </div>
+      <div class="spin__tags">
+        <span>New arrivals</span>
+        <span>Worn daily | Built to last</span>
+      </div>
+    </section>
+
+    <!-- 5 · ABOUT (giant type with cards flying over) -->
+    <section class="about" id="about">
+      <div class="about__type" aria-hidden="true">
+        <div>BUILT TO LAST</div>
+        <div>MADE IN CAIRO</div>
+        <div>BUILT TO LAST</div>
+        <div>MADE IN CAIRO</div>
+        <div>BUILT TO LAST</div>
+        <div>MADE IN CAIRO</div>
+      </div>
+      <div class="about__cards" data-about-cards></div>
+      <svg class="about__line" viewBox="0 0 400 1200" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M320 0 C 380 160, 40 220, 120 380 S 380 560, 260 720 S 20 900, 140 1060 S 300 1160, 260 1200"/>
+      </svg>
+      <div class="about__copy">
+        <p class="mono">About Ruins</p>
+        <h2>Basics you reach for every day, made to outlast the season.</h2>
+        <p>Ruins makes everyday clothing in Cairo: heavy knits, brushed fleece and clean lines in black, brown, grey and cream. Nothing loud, nothing wasted. Archive 01 is where it starts.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot__top">
+      <div class="foot__news">
+        <p class="mono">First access to Archive 02</p>
+        <form class="foot__form" data-news>
+          <input type="email" required placeholder="Your email" aria-label="Your email">
+          <button type="submit" class="mono">Join</button>
+        </form>
+      </div>
+      <div class="foot__cols mono">
+        <div><b>Shop</b><a href="#shop">All pieces</a><a href="#archive">Archive 01</a><a href="#shop" data-filter-link="Knitwear">Knitwear</a></div>
+        <div><b>Help</b><a href="#" data-soon>Shipping</a><a href="#" data-soon>Returns</a><a href="#" data-soon>Size guide</a></div>
+        <div><b>Follow</b><a href="https://www.instagram.com/ruins.co_/" target="_blank" rel="noopener">Instagram</a><a href="#about">About</a></div>
+      </div>
+    </div>
+    <div class="foot__logo logo" data-logo aria-hidden="true">RUINS</div>
+    <div class="foot__base mono"><span>© 2026 Ruins</span><span>Basics · Cairo</span></div>
+  </footer>
+
+  <!-- PRODUCT VIEW -->
+  <div class="pv" aria-hidden="true" role="dialog" aria-label="Product" data-lenis-prevent>
+    <div class="pv__veil" data-pv-close></div>
+    <button class="pv__close mono" data-pv-close>Close ✕</button>
+    <button class="pv__arrow pv__arrow--prev mono" data-pv-step="-1" aria-label="Previous piece">←</button>
+    <button class="pv__arrow pv__arrow--next mono" data-pv-step="1" aria-label="Next piece">→</button>
+    <div class="pv__stage"><img class="pv__img" alt=""></div>
+    <div class="pv__info">
+      <div class="pv__no mono"></div>
+      <h3 class="pv__name"></h3>
+      <div class="pv__price mono"></div>
+      <div class="pv__views mono" data-pv-views>
+        <button data-view="cut" class="is-on">Piece</button>
+        <button data-view="on">On body</button>
+      </div>
+      <div class="pv__row">
+        <div class="pv__label mono">Colour — <span data-pv-color></span></div>
+        <div class="pv__swatches" data-pv-swatches></div>
+      </div>
+      <div class="pv__row">
+        <div class="pv__label mono">Size</div>
+        <div class="pv__sizes mono" data-pv-sizes></div>
+      </div>
+      <button class="btn btn--solid pv__add" data-pv-add>Select a size</button>
+      <p class="pv__blurb"></p>
+      <ul class="pv__details mono"></ul>
+    </div>
+  </div>
+
+  <!-- BAG -->
+  <aside class="bag" aria-hidden="true" aria-label="Bag">
+    <div class="bag__veil" data-close-bag></div>
+    <div class="bag__panel">
+      <div class="bag__head mono"><span>Bag (<span data-bag-count>0</span>)</span><button data-close-bag>Close ✕</button></div>
+      <div class="bag__items" data-bag-items data-lenis-prevent></div>
+      <div class="bag__foot">
+        <div class="bag__total mono"><span>Subtotal</span><span data-bag-total>0 EGP</span></div>
+        <p class="bag__note mono">Shipping is worked out at checkout.</p>
+        <button class="btn btn--solid bag__checkout" data-checkout>Checkout</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="toast mono" role="status" aria-live="polite"></div>
+
+  <!-- colour versions, for comparing (visible with ?theme=…) -->
+  <nav class="themes mono" aria-label="Colour version">
+    <a href="./">Orange</a><a href="?theme=green">Green</a><a href="?theme=brand">Brand</a>
+  </nav>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
