@@ -644,3 +644,15 @@ body.show-themes .themes { display: flex; }
   .gw__fig::after { content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: overlay; opacity: .55;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 }
+
+/* phones / touch: lighter page (iPhone struggles with blend layers, backdrop blur and stacked shadows) */
+@media (hover: none) {
+  .grain { display: none; }
+  .nav { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--paper); }
+  .pv__veil { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(242,240,235,.96); }
+  .ri__turn { filter: drop-shadow(4px 12px 10px rgba(0,0,0,.18)); }
+  .gw::after { display: none; }
+  .gw__fig::after { mix-blend-mode: normal; opacity: .18; }
+  .ss, .card__cut, .ac img, .spin__piece img { filter: none; }
+  .about__line { display: none; }
+}
