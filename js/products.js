@@ -61,7 +61,7 @@ window.RUINS = {
       details: ['One-shoulder neckline', 'Deep ribbed waistband', 'Cropped fit', 'Fabric and care: coming soon'],
       colors: [
         { key: 'brown', label: 'Brown / Sky', hex: '#4b2a20', hex2: '#8fb3e3', cut: 'stripe-brown', on: 'stripe-brown', shopify: {} },
-        { key: 'navy', label: 'Navy / Sky', hex: '#1d2535', hex2: '#a9c8ee', cut: null, on: 'stripe-navy', shopify: {} }
+        { key: 'navy', label: 'Navy / Sky', hex: '#1d2535', hex2: '#a9c8ee', cut: 'stripe-navy', on: 'stripe-navy', shopify: {} }
       ]
     },
     {
@@ -77,7 +77,7 @@ window.RUINS = {
   /* The order pieces hang on the rail at the top of the page (product id / colour key). */
   rail: [
     ['zip-hoodie', 'grey'], ['knit-zip-jacket', 'black'], ['knit-polo', 'ivory'], ['knit-crewneck', 'chocolate'],
-    ['striped-off-shoulder', 'brown'], ['zip-hoodie', 'black'], ['knit-zip-jacket', 'charcoal'], ['mandarin-top', 'white'], ['knit-polo', 'brown'],
+    ['striped-off-shoulder', 'brown'], ['striped-off-shoulder', 'navy'], ['zip-hoodie', 'black'], ['knit-zip-jacket', 'charcoal'], ['mandarin-top', 'white'], ['knit-polo', 'brown'],
     ['knit-polo', 'black'], ['zip-hoodie', 'brown'], ['knit-crewneck', 'black'], ['knit-zip-jacket', 'brown']
   ],
 

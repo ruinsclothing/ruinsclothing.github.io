@@ -114,7 +114,7 @@
      has natural edges all round instead of a cut line. Hover turns it to the front. */
   const BODY = 0.3, SLEEVE = 0.27;     // body seen edge-on (share of the width) · sleeve crop
   // pieces whose left side isn't a clean sleeve (e.g. the off-shoulder knit) use their right sleeve, mirrored
-  const RIGHT_SLEEVE = ['stripe-brown'];
+  const RIGHT_SLEEVE = ['stripe-brown', 'stripe-navy'];
   function buildGarment(g) {
     const ar = natural[g.dataset.src] || 0.85, h = dims.gh, w = h * ar, src = g.dataset.src;
     const m = `-webkit-mask-image:url('${src}');mask-image:url('${src}')`;
