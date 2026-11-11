@@ -113,6 +113,8 @@
      plus the sleeve hanging in front of it. Both come from the product photo, so the silhouette
      has natural edges all round instead of a cut line. Hover turns it to the front. */
   const BODY = 0.3, SLEEVE = 0.27;     // body seen edge-on (share of the width) · sleeve crop
+  // pieces whose left side isn't a clean sleeve (e.g. the off-shoulder knit) use their right sleeve, mirrored
+  const RIGHT_SLEEVE = ['stripe-brown'];
   function buildGarment(g) {
     const ar = natural[g.dataset.src] || 0.85, h = dims.gh, w = h * ar, src = g.dataset.src;
     const m = `-webkit-mask-image:url('${src}');mask-image:url('${src}')`;
@@ -120,7 +122,7 @@
       `<div class="ri__full" style="width:${w}px;left:${-w / 2}px"><img src="${src}" alt="" draggable="false"></div>` +
       `<div class="ri__side">` +
         `<div class="ri__edge" style="width:${w * BODY}px;left:${-w * BODY * 0.38}px"><img src="${src}" alt="" draggable="false"><i class="ri__shade ri__shade--body" style="${m}"></i></div>` +
-        `<div class="ri__sleeve" style="width:${w * SLEEVE}px;left:${-w * SLEEVE * 0.78}px"><div style="width:${w}px;height:100%;position:relative"><img src="${src}" alt="" draggable="false"><i class="ri__shade ri__shade--sleeve" style="${m}"></i></div></div>` +
+        `<div class="ri__sleeve" style="width:${w * SLEEVE}px;left:${-w * SLEEVE * 0.78}px"><div style="width:${w}px;height:100%;position:relative;${RIGHT_SLEEVE.some(n => src.includes(n)) ? 'transform:scaleX(-1)' : ''}"><img src="${src}" alt="" draggable="false"><i class="ri__shade ri__shade--sleeve" style="${m}"></i></div></div>` +
       `</div>`;
     g._w = w;
   }
@@ -534,7 +536,7 @@
   /* ---------- glass panel: clear window over the frosted model ---------- */
   const gw = $('[data-gw]'), gwFig = $('[data-gw-fig]'), gwWin = $('[data-gw-win]'), gwClear = $('.gw__clear');
   const FACE = { x: 0.49, y: 0.105 };              // where the face is in the photo (square rests here)
-  const q = { duration: hasHover ? 0.28 : 0.9, ease: hasHover ? 'power3.out' : 'power2.inOut' };
+  const q = { duration: hasHover ? 0.28 : 0.12, ease: 'power3.out' };
   const winX = gsap.quickTo(gwWin, 'x', q), winY = gsap.quickTo(gwWin, 'y', q);
   const clrX = gsap.quickTo(gwClear, 'x', q), clrY = gsap.quickTo(gwClear, 'y', q);
   function placeWin(fx, fy, clamp) {
@@ -559,20 +561,14 @@
       gw.addEventListener('mouseleave', () => { gw.classList.remove('is-peek'); placeWin(FACE.x, FACE.y, true); });
     }
     if (!hasHover) {
-      let held = false, drift;
-      const path = [[0.49, 0.105], [0.7, 0.32], [0.3, 0.5], [0.68, 0.7], [0.32, 0.22], [0.55, 0.45]];
-      let step = 0;
-      const wander = () => { if (!held) { step = (step + 1) % path.length; placeWin(path[step][0], path[step][1], true); } };
-      new IntersectionObserver(es => es.forEach(e => {
-        clearInterval(drift);
-        if (e.isIntersecting) { wander(); drift = setInterval(wander, 1200); }
-      }), { threshold: 0.3 }).observe(gw);
-      const follow = t => { const r = gwFig.getBoundingClientRect(); placeWin((t.clientX - r.left) / r.width, (t.clientY - r.top) / r.height, true); };
-      gw.addEventListener('touchstart', e => { held = true; follow(e.touches[0]); }, { passive: true });
-      gw.addEventListener('touchmove', e => follow(e.touches[0]), { passive: true });
-      gw.addEventListener('touchend', () => { setTimeout(() => { held = false; }, 1500); }, { passive: true });
-      // slower, softer glide on touch
-      gsap.set(gwWin, { transition: 'none' });
+      // phones: you move the square yourself — drag it over the model
+      gwWin.insertAdjacentHTML('beforeend', '<span class="gw__hint">Drag me ✥</span>');
+      let drag = false;
+      const at = e => { const r = gwFig.getBoundingClientRect(); placeWin((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height, true); };
+      gwWin.addEventListener('pointerdown', e => { drag = true; gw.classList.add('is-dragged'); gwWin.setPointerCapture(e.pointerId); });
+      gwWin.addEventListener('pointermove', e => { if (drag) at(e); });
+      gwWin.addEventListener('pointerup', () => { drag = false; });
+      gwWin.addEventListener('pointercancel', () => { drag = false; });
     }
     $('[data-gw-open]').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openPV('knit-crewneck', 'black', 'on', gwFig); });
   }

@@ -656,3 +656,13 @@ body.show-themes .themes { display: flex; }
   .ss, .card__cut, .ac img, .spin__piece img { filter: none; }
   .about__line { display: none; }
 }
+
+/* phones: the square is yours to drag */
+@media (hover: none) {
+  .gw__winbox { pointer-events: none; }
+  .gw__win { pointer-events: auto; touch-action: none; cursor: grab; outline: 2px solid #fff; box-shadow: 0 0 0 4px rgba(255,255,255,.25); }
+  .gw__hint { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); white-space: nowrap; background: var(--ink); color: #fff;
+    font-family: var(--head); font-weight: 700; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; padding: 5px 9px; animation: gwPulse 1.4s ease-in-out infinite; }
+  .gw.is-dragged .gw__hint { display: none; }
+}
+@keyframes gwPulse { 50% { transform: translateX(-50%) scale(1.08); } }
