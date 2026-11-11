@@ -16,6 +16,7 @@
   const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
   // always start at the top so the entrance plays over the rail
   try { history.scrollRestoration = 'manual'; } catch (e) {}
   window.scrollTo(0, 0);
@@ -198,7 +199,7 @@
     gsap.delayedCall(d + 0.05, () => { if (active === i) startIdle(); });
   }
 
-  let panX = 0;
+  let panX = 0, progScroll = 0;
   const railTotal = () => dims.front + dims.side * (ris.length - 1);
   function clampPan(x) {
     const W = rail.clientWidth, T = railTotal();
@@ -238,6 +239,7 @@
       return;
     }
     // phones: the rail scrolls sideways; bring the front piece to the middle
+    progScroll = Date.now();
     if (railItems.scrollWidth <= railItems.clientWidth) return;
     let x = 0;
     for (let k = 0; k < i; k++) x += dims.side;
@@ -289,6 +291,30 @@
     });
     item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); zoomed ? zoomOut() : zoomIn(); } });
   });
+  if (!hasHover) {
+    // the piece that lands in the middle of the screen turns to face you
+    let settle, lastTouch = 0;
+    const nearest = () => {
+      const mid = railItems.getBoundingClientRect().left + railItems.clientWidth / 2;
+      let best = active, bd = 1e9;
+      ris.forEach((r, k) => { const b = r.getBoundingClientRect(); const d = Math.abs(b.left + b.width / 2 - mid); if (d < bd) { bd = d; best = k; } });
+      return best;
+    };
+    railItems.addEventListener('scroll', () => {
+      clearTimeout(settle);
+      if (Date.now() - progScroll < 1100) return;   // the rail re-centring itself, not a swipe
+      settle = setTimeout(() => { const k = nearest(); if (k !== active) setActive(k); }, 140);
+    }, { passive: true });
+    railItems.addEventListener('touchstart', () => { lastTouch = Date.now(); }, { passive: true });
+    // plays by itself: the next piece turns every few seconds until you touch the rail
+    setInterval(() => {
+      if (zoomed || Date.now() - lastTouch < 7000 || document.hidden) return;
+      const r = hero.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      setActive((active + 1) % ris.length);
+    }, 2600);
+  }
+
   $('[data-zoom-open]').addEventListener('click', e => {
     e.stopPropagation();
     const r = ris[active];
@@ -462,7 +488,7 @@
     // Glass panel (RERISE): lines slide in, the glass comes into focus, 
     const gwT = { trigger: '.gw', start: 'top 70%' };
     gsap.from('.gw__lines div', { xPercent: -6, autoAlpha: 0, duration: 1, stagger: 0.07, ease: 'power3.out', scrollTrigger: gwT });
-    gsap.fromTo('#frostMap', { attr: { scale: 140 } }, { attr: { scale: 26 }, duration: 2, ease: 'power3.out', scrollTrigger: gwT });
+    if (hasHover) gsap.fromTo('#frostMap', { attr: { scale: 140 } }, { attr: { scale: 26 }, duration: 2, ease: 'power3.out', scrollTrigger: gwT });
     gsap.from('.gw__fig', { yPercent: 6, autoAlpha: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: gwT });
     gsap.from('.gw__win', { scale: 0, autoAlpha: 0, duration: 0.9, delay: 0.9, ease: 'expo.out', scrollTrigger: gwT });
     gsap.from('.gw__label, .gw__num, .gw__vert, .gw__details, .gw__barcode', { autoAlpha: 0, y: 14, duration: 0.8, stagger: 0.06, delay: 0.6, ease: 'power3.out', scrollTrigger: gwT });
@@ -506,7 +532,7 @@
   /* ---------- glass panel: clear window over the frosted model ---------- */
   const gw = $('[data-gw]'), gwFig = $('[data-gw-fig]'), gwWin = $('[data-gw-win]'), gwClear = $('.gw__clear');
   const FACE = { x: 0.49, y: 0.105 };              // where the face is in the photo (square rests here)
-  const q = { duration: 0.28, ease: 'power3.out' };
+  const q = { duration: hasHover ? 0.28 : 1.1, ease: hasHover ? 'power3.out' : 'power2.inOut' };
   const winX = gsap.quickTo(gwWin, 'x', q), winY = gsap.quickTo(gwWin, 'y', q);
   const clrX = gsap.quickTo(gwClear, 'x', q), clrY = gsap.quickTo(gwClear, 'y', q);
   function placeWin(fx, fy, clamp) {
@@ -529,6 +555,22 @@
         else placeWin(FACE.x, FACE.y, true);
       });
       gw.addEventListener('mouseleave', () => { gw.classList.remove('is-peek'); placeWin(FACE.x, FACE.y, true); });
+    }
+    if (!hasHover) {
+      let held = false, drift;
+      const path = [[0.49, 0.105], [0.62, 0.3], [0.36, 0.42], [0.55, 0.62], [0.42, 0.22]];
+      let step = 0;
+      const wander = () => { if (!held) { step = (step + 1) % path.length; placeWin(path[step][0], path[step][1], true); } };
+      new IntersectionObserver(es => es.forEach(e => {
+        clearInterval(drift);
+        if (e.isIntersecting && !reduce) drift = setInterval(wander, 1700);
+      }), { threshold: 0.3 }).observe(gw);
+      const follow = t => { const r = gwFig.getBoundingClientRect(); placeWin((t.clientX - r.left) / r.width, (t.clientY - r.top) / r.height, true); };
+      gw.addEventListener('touchstart', e => { held = true; follow(e.touches[0]); }, { passive: true });
+      gw.addEventListener('touchmove', e => follow(e.touches[0]), { passive: true });
+      gw.addEventListener('touchend', () => { setTimeout(() => { held = false; }, 1500); }, { passive: true });
+      // slower, softer glide on touch
+      gsap.set(gwWin, { transition: 'none' });
     }
     $('[data-gw-open]').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openPV('knit-crewneck', 'black', 'on', gwFig); });
   }
