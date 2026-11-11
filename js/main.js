@@ -4,7 +4,8 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // the brand's motion stays on even with the phone's Reduce Motion setting; ?calm=1 calms it
+  const reduce = new URLSearchParams(location.search).get('calm') === '1';
   const hasHover = window.matchMedia('(hover: hover)').matches;
 
   const byId = Object.fromEntries(D.products.map(p => [p.id, p]));

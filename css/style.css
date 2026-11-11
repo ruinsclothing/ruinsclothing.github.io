@@ -412,7 +412,7 @@ body.menu-open .menu { clip-path: inset(0 0 0 0); pointer-events: auto; }
   padding: 13px 20px; border-radius: 999px; transition: transform .5s var(--ease); max-width: calc(100% - 32px); text-align: center; }
 .toast.is-on { transform: translate(-50%, 0); visibility: visible; }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (max-width: 0px) {   /* disabled: keep the marquee moving */
   .announce__track { animation: none; }
 }
 
