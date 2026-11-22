@@ -618,7 +618,7 @@
     window.addEventListener('resize', () => { if (started) { size(); draw(i); } });
     $('[data-cp-open]').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openPV('knit-zip-jacket', 'charcoal', 'on', film); });
   }
-  if (document.documentElement.hasAttribute('data-theme')) document.body.classList.add('show-themes');
+  if (/[?&]theme=/.test(location.search)) document.body.classList.add('show-themes');
 
   /* =========================================================
      PRODUCT VIEW
