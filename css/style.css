@@ -631,6 +631,8 @@ body.menu-open .menu { clip-path: inset(0 0 0 0); pointer-events: auto; }
   --glow-soft: radial-gradient(circle at 50% 56%, rgba(201,160,74,.5) 0%, rgba(184,112,88,.45) 18%, rgba(112,64,64,.3) 36%, rgba(11,19,64,0) 62%);
 }
 [data-theme="brand"] .card__media { background: rgba(160,168,136,.22); }   /* sage */
+[data-theme="brand"] .loader { background: var(--dark); color: #fff; }   /* entrance screen like the footer: navy, */
+[data-theme="brand"] .loader__logo { color: var(--orange); }                 /* terracotta logo, white labels */
 
 .themes { display: none; position: fixed; left: 14px; bottom: 14px; z-index: 450; background: var(--ink); padding: 4px; gap: 2px; }
 body.show-themes .themes { display: flex; }
