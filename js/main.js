@@ -414,7 +414,7 @@
     ringTween = gsap.to(ring, { rotationY: -360, duration: reduce ? 120 : 24, ease: 'none', repeat: -1 });
   }
   // pieces that rotate through the middle of the ring
-  const spinList = [['zip-hoodie', 'grey'], ['striped-off-shoulder', 'brown'], ['knit-zip-jacket', 'charcoal'], ['knit-polo', 'ivory'], ['knit-crewneck', 'chocolate'], ['zip-hoodie', 'black']];
+  const spinList = [['zip-hoodie', 'grey'], ['striped-off-shoulder', 'brown'], ['knit-zip-jacket', 'black'], ['knit-henley', 'ivory'], ['knit-crewneck', 'chocolate'], ['zip-hoodie', 'black']];
   spinList.forEach(([pid, ck], i) => {
     const p = byId[pid], c = colorOf(p, ck);
     const im = el('img'); im.src = cutSrc(c.cut); im.alt = `${p.name} in ${c.label}`; im.loading = 'lazy';
@@ -476,7 +476,7 @@
   ========================================================= */
   const aboutCards = $('[data-about-cards]');
   // products (not model photos) drifting over the giant type
-  const aboutList = [['knit-zip-jacket', 'brown'], ['zip-hoodie', 'grey'], ['striped-off-shoulder', 'brown'], ['knit-polo', 'ivory'], ['knit-crewneck', 'black']];
+  const aboutList = [['knit-zip-jacket', 'brown'], ['zip-hoodie', 'grey'], ['striped-off-shoulder', 'brown'], ['knit-henley', 'ivory'], ['knit-crewneck', 'black']];
   const rots = [-9, 8, -5, 10, -7];
   aboutList.forEach(([pid, ck], i) => {
     const p = byId[pid], c = colorOf(p, ck);
@@ -616,7 +616,7 @@
       else if (!e.isIntersecting) playing = false;
     }), { threshold: 0.2 }).observe(film);
     window.addEventListener('resize', () => { if (started) { size(); draw(i); } });
-    $('[data-cp-open]').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openPV('knit-zip-jacket', 'charcoal', 'on', film); });
+    $('[data-cp-open]').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openPV('knit-zip-jacket', 'black', 'cut', film); });
   }
   if (/[?&]theme=/.test(location.search)) document.body.classList.add('show-themes');
 
@@ -830,6 +830,8 @@
     ScrollTrigger.refresh();
     const m = location.hash.match(/^#piece\/([\w-]+)\/([\w-]+)/);
     if (m) openPV(m[1], m[2], 'cut');
+    // #bag (e.g. the bag icon on Shopify's checkout page) opens the bag straight away
+    else if (location.hash === '#bag') { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} setTimeout(openBag, 150); }
     else if (location.hash.length > 1 && $(location.hash)) setTimeout(() => scrollToHash(location.hash), 200);
   }
 

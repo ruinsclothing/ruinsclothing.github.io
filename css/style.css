@@ -630,7 +630,7 @@ body.menu-open .menu { clip-path: inset(0 0 0 0); pointer-events: auto; }
   --glow: radial-gradient(circle at 50% 44%, #EBCB7A 0%, #C9A04A 15%, #B87058 33%, #704040 56%, #2A1E44 78%, #0B1340 100%);
   --glow-soft: radial-gradient(circle at 50% 56%, rgba(201,160,74,.5) 0%, rgba(184,112,88,.45) 18%, rgba(112,64,64,.3) 36%, rgba(11,19,64,0) 62%);
 }
-[data-theme="brand"] .card__media { background: rgba(160,168,136,.22); }   /* sage */
+[data-theme="brand"] .card:not(.card--note) .card__media { background: rgba(160,168,136,.22); }   /* sage */
 [data-theme="brand"] .loader { background: var(--dark); color: #fff; }   /* entrance screen like the footer: navy, */
 [data-theme="brand"] .loader__logo { color: var(--orange); }                 /* terracotta logo, white labels */
 

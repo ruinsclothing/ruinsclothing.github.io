@@ -28,12 +28,11 @@ window.RUINS = {
     },
     {
       id: 'knit-zip-jacket', no: '02', name: 'Knit Zip Jacket', type: 'Jackets', price: 0,
-      blurb: 'A heavy knit with a high zip neck and a two-way zip. Cropped, roomy through the body.',
-      details: ['High funnel neck', 'Two-way metal zip', 'Cropped, relaxed body', 'Fabric and care: coming soon'],
+      blurb: 'A textured knit with a wide zip collar and a full-length metal zip. Fitted and cropped.',
+      details: ['Wide zip collar', 'Full-length metal zip', 'Fitted, cropped body', 'Fabric and care: coming soon'],
       colors: [
-        { key: 'brown', label: 'Brown', hex: '#4a2e24', cut: 'zip-jacket-brown', on: 'zip-jacket-brown', shopify: { S: 68525062750435, M: 68525062783203, L: 68525062815971, XL: 68525062848739 } },
-        { key: 'black', label: 'Black', hex: '#161616', cut: 'zip-jacket-black', on: 'zip-jacket-black', shopify: { S: 68525062881507, M: 68525062914275, L: 68525062947043, XL: 68525062979811 } },
-        { key: 'charcoal', label: 'Charcoal', hex: '#4b4b4b', cut: 'zip-jacket-charcoal', on: 'zip-jacket-charcoal', shopify: { S: 68525063045347, M: 68525063078115, L: 68525063110883, XL: 68525063143651 } }
+        { key: 'black', label: 'Black', hex: '#161616', cut: 'zip-jacket-textured-black', on: null, shopify: {} },
+        { key: 'brown', label: 'Chocolate', hex: '#3f2219', cut: 'zip-jacket-boucle-brown', on: null, shopify: {} }
       ]
     },
     {
@@ -41,7 +40,6 @@ window.RUINS = {
       blurb: 'Long-sleeve knit polo with a three-button placket. Soft, structured, easy to dress up or down.',
       details: ['Three-button placket', 'Ribbed collar, cuffs and hem', 'Relaxed fit', 'Fabric and care: coming soon'],
       colors: [
-        { key: 'ivory', label: 'Ivory', hex: '#ece6d6', cut: 'polo-ivory', on: 'henley-cream', shopify: { S: 68525063176419, M: 68525063209187, L: 68525063241955, XL: 68525063274723 } },
         { key: 'black', label: 'Black', hex: '#161616', cut: 'polo-black', on: 'polo-black', shopify: { S: 68525063307491, M: 68525063340259, L: 68525063373027, XL: 68525063405795 } },
         { key: 'brown', label: 'Brown', hex: '#5a2f26', cut: 'polo-brown', on: 'polo-brown', shopify: { S: 68525063438563, M: 68525063471331, L: 68525063504099, XL: 68525063536867 } }
       ]
@@ -65,27 +63,38 @@ window.RUINS = {
       ]
     },
     {
-      id: 'mandarin-top', no: '06', name: 'Mandarin Collar Top', type: 'Tops', price: 0,
-      blurb: 'A fitted long-sleeve top with a stand collar and an open V. Clean and sharp on its own.',
-      details: ['Stand collar, open V', 'Fitted body', 'Long sleeves', 'Fabric and care: coming soon'],
+      id: 'knit-henley', no: '06', name: 'Knit Henley', type: 'Knitwear', price: 0,
+      blurb: 'A soft, relaxed knit with a short button placket. Quiet, warm, made to layer.',
+      details: ['Button placket', 'Collarless neck', 'Relaxed fit', 'Fabric and care: coming soon'],
       colors: [
-        { key: 'white', label: 'White', hex: '#f7f7f5', cut: 'mandarin-white', on: 'mandarin-white', shopify: { S: 68525064323299, M: 68525064356067, L: 68525064388835, XL: 68525064421603 } }
+        { key: 'ivory', label: 'Ivory', hex: '#ece6d6', cut: 'henley-ivory', on: 'henley-cream', shopify: {} },
+        { key: 'black', label: 'Black', hex: '#161616', cut: 'henley-black', on: 'henley-black', shopify: {} }
+      ]
+    },
+    {
+      id: 'ribbed-henley', no: '07', name: 'Ribbed Henley', type: 'Tops', price: 0,
+      blurb: 'A fitted long-sleeve rib with a four-button placket. Clean on its own, easy under a knit.',
+      details: ['Four-button placket', 'Fine rib, fitted body', 'Long sleeves', 'Fabric and care: coming soon'],
+      colors: [
+        { key: 'white', label: 'White', hex: '#f7f7f5', cut: 'rib-henley-white', on: null, shopify: {} },
+        { key: 'brown', label: 'Chocolate', hex: '#4b241c', cut: 'rib-henley-brown', on: null, shopify: {} },
+        { key: 'black', label: 'Black', hex: '#161616', cut: 'rib-henley-black', on: null, shopify: {} }
       ]
     }
   ],
 
   /* The order pieces hang on the rail at the top of the page (product id / colour key). */
   rail: [
-    ['zip-hoodie', 'grey'], ['knit-zip-jacket', 'black'], ['knit-polo', 'ivory'], ['knit-crewneck', 'chocolate'],
-    ['striped-off-shoulder', 'brown'], ['striped-off-shoulder', 'navy'], ['zip-hoodie', 'black'], ['knit-zip-jacket', 'charcoal'], ['mandarin-top', 'white'], ['knit-polo', 'brown'],
-    ['knit-polo', 'black'], ['zip-hoodie', 'brown'], ['knit-crewneck', 'black'], ['knit-zip-jacket', 'brown']
+    ['zip-hoodie', 'grey'], ['knit-zip-jacket', 'black'], ['knit-henley', 'ivory'], ['knit-crewneck', 'chocolate'],
+    ['striped-off-shoulder', 'brown'], ['zip-hoodie', 'black'], ['ribbed-henley', 'white'], ['knit-zip-jacket', 'brown'], ['knit-polo', 'brown'],
+    ['knit-polo', 'black'], ['striped-off-shoulder', 'navy'], ['zip-hoodie', 'brown'], ['ribbed-henley', 'brown'], ['knit-crewneck', 'black'], ['knit-henley', 'black'], ['ribbed-henley', 'black']
   ],
 
   /* The big scrolling showcase (giant word behind the piece). */
   showcase: [
     { id: 'zip-hoodie', color: 'grey', word: 'HOODIE' },
     { id: 'knit-zip-jacket', color: 'brown', word: 'JACKET' },
-    { id: 'knit-polo', color: 'ivory', word: 'POLO' },
+    { id: 'knit-polo', color: 'brown', word: 'POLO' },
     { id: 'striped-off-shoulder', color: 'brown', word: 'STRIPE' }
   ]
 };
