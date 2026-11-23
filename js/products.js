@@ -31,8 +31,8 @@ window.RUINS = {
       blurb: 'A textured knit with a wide zip collar and a full-length metal zip. Fitted and cropped.',
       details: ['Wide zip collar', 'Full-length metal zip', 'Fitted, cropped body', 'Fabric and care: coming soon'],
       colors: [
-        { key: 'black', label: 'Black', hex: '#161616', cut: 'zip-jacket-textured-black', on: null, shopify: {} },
-        { key: 'brown', label: 'Chocolate', hex: '#3f2219', cut: 'zip-jacket-boucle-brown', on: null, shopify: {} }
+        { key: 'black', label: 'Black', hex: '#161616', cut: 'zip-jacket-textured-black', on: null, shopify: { S: 68894933778659, M: 68894933811427, L: 68894933844195, XL: 68894933876963 } },
+        { key: 'brown', label: 'Chocolate', hex: '#3f2219', cut: 'zip-jacket-boucle-brown', on: null, shopify: { S: 68894933909731, M: 68894933942499, L: 68894933975267, XL: 68894934008035 } }
       ]
     },
     {
@@ -67,8 +67,8 @@ window.RUINS = {
       blurb: 'A soft, relaxed knit with a short button placket. Quiet, warm, made to layer.',
       details: ['Button placket', 'Collarless neck', 'Relaxed fit', 'Fabric and care: coming soon'],
       colors: [
-        { key: 'ivory', label: 'Ivory', hex: '#ece6d6', cut: 'henley-ivory', on: 'henley-cream', shopify: {} },
-        { key: 'black', label: 'Black', hex: '#161616', cut: 'henley-black', on: 'henley-black', shopify: {} }
+        { key: 'ivory', label: 'Ivory', hex: '#ece6d6', cut: 'henley-ivory', on: 'henley-cream', shopify: { S: 68894934040803, M: 68894934073571, L: 68894934106339, XL: 68894934139107 } },
+        { key: 'black', label: 'Black', hex: '#161616', cut: 'henley-black', on: 'henley-black', shopify: { S: 68894934171875, M: 68894934204643, L: 68894934237411, XL: 68894934270179 } }
       ]
     },
     {
@@ -76,9 +76,9 @@ window.RUINS = {
       blurb: 'A fitted long-sleeve rib with a four-button placket. Clean on its own, easy under a knit.',
       details: ['Four-button placket', 'Fine rib, fitted body', 'Long sleeves', 'Fabric and care: coming soon'],
       colors: [
-        { key: 'white', label: 'White', hex: '#f7f7f5', cut: 'rib-henley-white', on: null, shopify: {} },
-        { key: 'brown', label: 'Chocolate', hex: '#4b241c', cut: 'rib-henley-brown', on: null, shopify: {} },
-        { key: 'black', label: 'Black', hex: '#161616', cut: 'rib-henley-black', on: null, shopify: {} }
+        { key: 'white', label: 'White', hex: '#f7f7f5', cut: 'rib-henley-white', on: null, shopify: { S: 68894934302947, M: 68894934335715, L: 68894934368483, XL: 68894934401251 } },
+        { key: 'brown', label: 'Chocolate', hex: '#4b241c', cut: 'rib-henley-brown', on: null, shopify: { S: 68894934434019, M: 68894934466787, L: 68894934499555, XL: 68894934532323 } },
+        { key: 'black', label: 'Black', hex: '#161616', cut: 'rib-henley-black', on: null, shopify: { S: 68894934565091, M: 68894934597859, L: 68894934630627, XL: 68894934663395 } }
       ]
     }
   ],
