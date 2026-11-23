@@ -800,6 +800,15 @@
   const minTime = new Promise(r => setTimeout(r, reduce ? 200 : 1700));
   const maxTime = new Promise(r => setTimeout(r, 3500));
 
+  // coming back from Shopify's checkout bag icon (#bag): skip the entrance and open the bag at once
+  const fromBag = location.hash === '#bag';
+  if (fromBag) {
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    loader.style.display = 'none';
+    document.body.classList.remove('is-loading');
+    openBag();
+    Promise.race([ready, maxTime]).then(() => { start(); openBag(); });
+  } else {
   const lLetters = $$('.loader__logo .l');
   gsap.set('.loader__logo', { filter: B(28), letterSpacing: '0.25em', opacity: 0 });
   gsap.to('.loader__logo', { filter: B(0), letterSpacing: logoLS, opacity: 1, duration: reduce ? 0.1 : 1.5, ease: 'expo.out', delay: 0.1 });
@@ -820,6 +829,7 @@
       .from('.hero__labels > *, .hero__caption > *', { y: 14, autoAlpha: 0, duration: 0.7, stagger: 0.06, ease: 'power3.out' }, '-=0.8')
       .from('.nav > *', { y: -16, autoAlpha: 0, duration: 0.7, stagger: 0.06, ease: 'power3.out' }, '<');
   });
+  }
 
   function start() {
     loader.style.display = 'none';
