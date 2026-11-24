@@ -7,14 +7,14 @@
   <meta name="description" content="RUINS — everyday basics made in Cairo. Archive 01: knits, zip hoodies and jackets.">
   <!-- TODO(launch): remove noindex when the shop goes live -->
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#B4664C">
+  <meta name="theme-color" content="#362921">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Montserrat:wght@500;600;700;800;900&family=Raleway:wght@200;300&family=Sedgwick+Ave+Display&family=Barlow+Condensed:wght@300&family=Instrument+Serif:ital@1&family=Anton&family=Caveat:wght@500&family=IBM+Plex+Mono:wght@400;500&family=Doto:wght@900&display=swap" rel="stylesheet">
-  <script>(function(){var t='brand';try{var q=new URLSearchParams(location.search).get('theme');if(q==='orange'||q==='green'||q==='brand')t=q;}catch(e){}if(t!=='orange')document.documentElement.setAttribute('data-theme',t);})();</script>
-  <link rel="stylesheet" href="vendor/lenis.css?v=20261123022300">
-  <link rel="stylesheet" href="css/style.css?v=20261123022300">
+  <script>(function(){var t='brown';try{var q=new URLSearchParams(location.search).get('theme');if(q==='orange'||q==='green'||q==='brand'||q==='brown')t=q;}catch(e){}if(t!=='orange')document.documentElement.setAttribute('data-theme',t);})();</script>
+  <link rel="stylesheet" href="vendor/lenis.css?v=20261124192654">
+  <link rel="stylesheet" href="css/style.css?v=20261124192654">
 </head>
 <body class="is-loading">
 
@@ -323,7 +323,7 @@
 
   <!-- colour versions, for comparing (visible with ?theme=…) -->
   <nav class="themes mono" aria-label="Colour version">
-    <a href="?theme=orange">Orange</a><a href="?theme=green">Green</a><a href="./">Brand</a>
+    <a href="?theme=orange">Orange</a><a href="?theme=green">Green</a><a href="?theme=brand">Brand</a><a href="./">Brown</a>
   </nav>
 
   <script>
@@ -334,17 +334,17 @@
     window.addEventListener('load', function(){ setTimeout(function(){
       var d = document.createElement('pre'); d.id = 'dbg';
       d.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:9999;background:#111;color:#0f0;font:11px/1.4 monospace;padding:10px;white-space:pre-wrap;max-height:45vh;overflow:auto;border-radius:6px';
-      d.textContent = 'RUINS check ' + '20261123022300' + '\nwidth ' + innerWidth + ' · hover ' + matchMedia('(hover: hover)').matches + ' · reduceMotion ' + matchMedia('(prefers-reduced-motion: reduce)').matches +
+      d.textContent = 'RUINS check ' + '20261124192654' + '\nwidth ' + innerWidth + ' · hover ' + matchMedia('(hover: hover)').matches + ' · reduceMotion ' + matchMedia('(prefers-reduced-motion: reduce)').matches +
         '\ngsap ' + (typeof gsap) + ' · ScrollTrigger ' + (typeof ScrollTrigger) + ' · Lenis ' + (typeof Lenis) +
         '\nloader gone ' + (getComputedStyle(document.querySelector('.loader')).display === 'none') + ' · rail pieces ' + document.querySelectorAll('.ri').length +
         '\n' + navigator.userAgent + '\nerrors: ' + (errs.length ? '\n' + errs.join('\n') : 'none');
       document.body.appendChild(d); }, 6000); });
   })();
   </script>
-  <script src="vendor/gsap.min.js?v=20261123022300"></script>
-  <script src="vendor/ScrollTrigger.min.js?v=20261123022300"></script>
-  <script src="vendor/lenis.min.js?v=20261123022300"></script>
-  <script src="js/products.js?v=20261123022300"></script>
-  <script src="js/main.js?v=20261123022300"></script>
+  <script src="vendor/gsap.min.js?v=20261124192654"></script>
+  <script src="vendor/ScrollTrigger.min.js?v=20261124192654"></script>
+  <script src="vendor/lenis.min.js?v=20261124192654"></script>
+  <script src="js/products.js?v=20261124192654"></script>
+  <script src="js/main.js?v=20261124192654"></script>
 </body>
 </html>

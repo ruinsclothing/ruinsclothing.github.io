@@ -633,6 +633,19 @@ body.menu-open .menu { clip-path: inset(0 0 0 0); pointer-events: auto; }
 [data-theme="brand"] .card:not(.card--note) .card__media { background: rgba(160,168,136,.22); }   /* sage */
 [data-theme="brand"] .loader { background: var(--dark); color: #fff; }   /* entrance screen like the footer: navy, */
 [data-theme="brand"] .loader__logo { color: var(--orange); }                 /* terracotta logo, white labels */
+/* BROWN: Jana's brown + sand (2026-11-24) — dark brown sections, brown accents on paper, sand type on brown */
+[data-theme="brown"] {
+  --orange: #362921; --orange-deep: #241a15; --dark: #362921; --accent-text: #D3C2A8;
+  --glow: radial-gradient(circle at 50% 44%, #EFE4D2 0%, #D3C2A8 18%, #9C8467 36%, #5E4A39 56%, #362921 78%, #241a15 100%);
+  --glow-soft: radial-gradient(circle at 50% 56%, rgba(239,228,210,.6) 0%, rgba(205,152,98,.52) 18%, rgba(128,74,46,.38) 36%, rgba(54,41,33,0) 62%);
+}
+[data-theme="brown"] .sw, [data-theme="brown"] .foot__logo { color: #D3C2A8; }
+[data-theme="brown"] .loader { background: #362921; color: #D3C2A8; }
+[data-theme="brown"] .loader__logo { color: #D3C2A8; }
+/* on the dark-brown sections the brown accent would vanish: use sand there */
+[data-theme="brown"] .show__count b, [data-theme="brown"] .foot__form button, [data-theme="brown"] .foot__cols a:hover { color: #D3C2A8; }
+[data-theme="brown"] .show__progress i { background: #D3C2A8; }
+[data-theme="brown"] .show__side .btn--line:hover, [data-theme="brown"] .si .btn--line:hover { background: #D3C2A8; border-color: #D3C2A8; color: #362921; }
 
 .themes { display: none; position: fixed; left: 14px; bottom: 14px; z-index: 450; background: var(--ink); padding: 4px; gap: 2px; }
 body.show-themes .themes { display: flex; }
